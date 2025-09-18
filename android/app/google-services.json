@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1023185235808",
+    "project_id": "babi-market-cead8",
+    "storage_bucket": "babi-market-cead8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023185235808:android:c9ee6b945f556b750a7805",
+        "android_client_info": {
+          "package_name": "com.example.babi_market"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuHATJwMxpgh6gk5ZZPcJ7Os4W01Hp2qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
