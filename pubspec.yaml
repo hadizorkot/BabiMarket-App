@@ -96,3 +96,8 @@ flutter:
 
   assets:
     - assets/ProductCategory.json
+    - assets/products.json
+    - assets/images/apple.jpg
+    - assets/images/banana.jpg
+    - assets/images/coke.jpg
+    - assets/images/pepsi.jpg

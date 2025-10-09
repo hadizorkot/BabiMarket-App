@@ -1,0 +1,40 @@
+[
+  {
+    "categoryId": 1,
+    "products": [
+      {
+        "id": 1,
+        "name": "Apple",
+        "description": "Fresh red apples",
+        "price": 2.5,
+        "image": "assets/images/apple.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Banana",
+        "description": "Yellow bananas",
+        "price": 1.2,
+        "image": "assets/images/banana.jpg"
+      }
+    ]
+  },
+  {
+    "categoryId": 2,
+    "products": [
+      {
+        "id": 3,
+        "name": "Coke",
+        "description": "Refreshing soda",
+        "price": 1.5,
+        "image": "assets/images/coke.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Pepsi",
+        "description": "Cool refreshing drink",
+        "price": 1.4,
+        "image": "assets/images/pepsi.jpg"
+      }
+    ]
+  }
+]

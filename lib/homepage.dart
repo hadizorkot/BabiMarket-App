@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:babi_market/services/remote_services.dart';
-import 'package:babi_market/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:babi_market/models/ProductCategory.dart';
+import 'product_category_page.dart'; // Import ProductCategoryPage
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -12,16 +11,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final user = FirebaseAuth.instance.currentUser;
-
-  signout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const Login()),
-    );
-  }
-
   List<ProductCategory>? productCategories;
   var isLoading = false;
 
@@ -47,7 +36,7 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         title: const Text("BabiMarket"),
         centerTitle: true,
-        backgroundColor: Colors.redAccent, // AppBar color
+        backgroundColor: const Color.fromARGB(255, 94, 82, 255), // AppBar color
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -58,7 +47,7 @@ class _HomepageState extends State<Homepage> {
             Container(
               height: 180,
               decoration: BoxDecoration(
-                color: Colors.orangeAccent,
+                color: const Color.fromARGB(255, 64, 169, 255),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Center(
@@ -96,7 +85,17 @@ class _HomepageState extends State<Homepage> {
                           padding: const EdgeInsets.only(right: 16.0),
                           child: GestureDetector(
                             onTap: () {
-                              // Implement the logic when a category is tapped
+                              // Navigate to the Product Category Page when tapped
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductCategoryPage(
+                                    categoryId: productCategories![index].id,
+                                    categoryName:
+                                        productCategories![index].name,
+                                  ),
+                                ),
+                              );
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -104,11 +103,8 @@ class _HomepageState extends State<Homepage> {
                                 horizontal: 12,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors
-                                    .redAccent, // Background color of the box
-                                borderRadius: BorderRadius.circular(
-                                  12,
-                                ), // Rounded corners
+                                color: const Color.fromARGB(255, 99, 82, 255),
+                                borderRadius: BorderRadius.circular(12),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.3),
@@ -122,7 +118,7 @@ class _HomepageState extends State<Homepage> {
                                   productCategories![index].name,
                                   style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18, // Larger font size
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -134,7 +130,6 @@ class _HomepageState extends State<Homepage> {
                     )
                   : const Center(child: CircularProgressIndicator()),
             ),
-
             const SizedBox(height: 16),
           ],
         ),
@@ -160,10 +155,6 @@ class _HomepageState extends State<Homepage> {
         onTap: (index) {
           // Handle the navigation logic here
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: signout,
-        child: const Icon(Icons.login_rounded),
       ),
     );
   }
