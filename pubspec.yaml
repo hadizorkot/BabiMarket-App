@@ -95,9 +95,67 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   assets:
-    - assets/ProductCategory.json
-    - assets/products.json
     - assets/images/apple.jpg
     - assets/images/banana.jpg
+    - assets/images/orange.jpg
+    - assets/images/grapes.jpg
+    - assets/images/tomato.jpg
+    - assets/images/cucumber.jpg
+    - assets/images/lettuce.jpg
+    - assets/images/carrot.jpg
     - assets/images/coke.jpg
     - assets/images/pepsi.jpg
+    - assets/images/sprite.jpg
+    - assets/images/fanta.jpg
+    - assets/images/mountain_dew.jpg
+    - assets/images/dr_pepper.jpg
+    - assets/images/7up.jpg
+    - assets/images/gatorade.jpg
+    - assets/images/chips.jpg
+    - assets/images/cookies.jpg
+    - assets/images/candy.jpg
+    - assets/images/nuts.jpg
+    - assets/images/popcorn.jpg
+    - assets/images/pretzels.jpg
+    - assets/images/granola_bar.jpg
+    - assets/images/muffins.jpg
+    - assets/images/dish_soap.jpg
+    - assets/images/laundry_detergent.jpg
+    - assets/images/toilet_paper.jpg
+    - assets/images/cleaning_spray.jpg
+    - assets/images/trash_bags.jpg
+    - assets/images/sponges.jpg
+    - assets/images/paper_towels.jpg
+    - assets/images/mop.jpg
+    - assets/images/shampoo.jpg
+    - assets/images/toothpaste.jpg
+    - assets/images/soap.jpg
+    - assets/images/conditioner.jpg
+    - assets/images/body_lotion.jpg
+    - assets/images/deodorant.jpg
+    - assets/images/face_wash.jpg
+    - assets/images/shaving_cream.jpg
+    - assets/images/smartphone.jpg
+    - assets/images/laptop.jpg
+    - assets/images/smartwatch.jpg
+    - assets/images/headphones.jpg
+    - assets/images/tablet.jpg
+    - assets/images/camera.jpg
+    - assets/images/speaker.jpg
+    - assets/images/game_console.jpg
+    - assets/images/tshirt.jpg
+    - assets/images/jeans.jpg
+    - assets/images/jacket.jpg
+    - assets/images/sweater.jpg
+    - assets/images/shoes.jpg
+    - assets/images/socks.jpg
+    - assets/images/hat.jpg
+    - assets/images/scarf.jpg
+    - assets/images/smartphone.jpg
+    - assets/images/tablet.jpg
+    - assets/images/laptop.jpg
+    - assets/images/headphones.jpg
+    - assets/images/smartwatch.jpg
+    - assets/images/camera.jpg
+    - assets/images/speaker.jpg
+    - assets/images/game_console.jpg

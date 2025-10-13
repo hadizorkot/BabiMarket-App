@@ -45,25 +45,39 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
         backgroundColor: const Color.fromARGB(255, 94, 82, 255),
         elevation: 4, // Add shadow for a floating effect
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : products == null || products!.isEmpty
-            ? const Center(child: Text('No products found in this category.'))
-            : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.75, // Adjust item aspect ratio
-                ),
-                itemCount: products?.length,
-                itemBuilder: (context, index) {
-                  final product = products![index];
-                  return ProductCard(product: product);
-                },
-              ),
+      body: SingleChildScrollView(
+        // Make the entire body scrollable
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Column(
+            children: [
+              // Loading indicator or message if products are not available
+              isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : products == null || products!.isEmpty
+                  ? const Center(
+                      child: Text('No products found in this category.'),
+                    )
+                  : GridView.builder(
+                      shrinkWrap:
+                          true, // Allow the GridView to only take needed space
+                      physics:
+                          NeverScrollableScrollPhysics(), // Disable GridView scrolling
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0,
+                        childAspectRatio: 0.75, // Adjust item aspect ratio
+                      ),
+                      itemCount: products?.length,
+                      itemBuilder: (context, index) {
+                        final product = products![index];
+                        return ProductCard(product: product);
+                      },
+                    ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -108,16 +122,6 @@ class ProductCard extends StatelessWidget {
                   color: Colors.black87,
                 ),
                 overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            // Description part
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                product.description,
-                style: TextStyle(fontSize: 14, color: Colors.black54),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2, // Limit description to 2 lines to prevent overflow
               ),
             ),
             // Price part: Display at the bottom of the card

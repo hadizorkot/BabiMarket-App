@@ -5,8 +5,5 @@
   { "id": 4, "name": "Household" },
   { "id": 5, "name": "Personal Care" },
   { "id": 6, "name": "Electronics" },
-  { "id": 7, "name": "Clothing" },
-  { "id": 8, "name": "Toys" },
-  { "id": 9, "name": "Health & Wellness" },
-  { "id": 10, "name": "Furniture" }
+  { "id": 7, "name": "Clothing" }
 ]

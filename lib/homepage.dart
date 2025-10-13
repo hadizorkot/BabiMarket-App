@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:babi_market/services/remote_services.dart';
 import 'package:babi_market/models/ProductCategory.dart';
 import 'product_category_page.dart'; // Import ProductCategoryPage
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -28,6 +29,13 @@ class _HomepageState extends State<Homepage> {
         isLoading = true;
       });
     }
+  }
+
+  // Logout Function
+  void logout() async {
+    await FirebaseAuth.instance.signOut();
+    // Navigate to the login page or handle accordingly after logout
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
@@ -134,27 +142,68 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Cart',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profile',
-          ),
-        ],
-        selectedItemColor: Colors.blueAccent,
-        onTap: (index) {
-          // Handle the navigation logic here
-        },
+      // Bottom Navigation Bar with solid background color
+      bottomNavigationBar: Container(
+        color: Colors
+            .white, // Set a solid background color for the bottom navigation
+        child: BottomNavigationBar(
+          items: const [
+            // Home Button (without label)
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: '', // Remove the label for the Home button
+            ),
+
+            // Favorites Button
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+            ),
+
+            // Cart Button
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+
+            // Profile Button
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              label: 'Profile',
+            ),
+
+            // Logout Button
+            BottomNavigationBarItem(
+              icon: Icon(Icons.logout),
+              label: 'Logout', // Logout button
+            ),
+          ],
+          selectedItemColor: const Color.fromARGB(
+            255,
+            47,
+            0,
+            255,
+          ), // Color for selected items
+          unselectedItemColor: const Color.fromARGB(
+            255,
+            47,
+            0,
+            255,
+          ), // Color for unselected items
+          currentIndex:
+              0, // Set the initial index of the bottom navigation (e.g., 0 for Home)
+          onTap: (index) {
+            if (index == 0) {
+              // Home button pressed, do nothing, it's already on the home page.
+            } else if (index == 4) {
+              // Logout button pressed
+              logout();
+            } else {
+              // Handle other navigation logic (Favorites, Cart, Profile)
+              // You can add logic to navigate to other sections here
+            }
+          },
+        ),
       ),
     );
   }

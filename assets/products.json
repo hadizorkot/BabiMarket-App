@@ -1,40 +1,101 @@
 [
   {
     "categoryId": 1,
+    "categoryName": "Food",
     "products": [
-      {
-        "id": 1,
-        "name": "Apple",
-        "description": "Fresh red apples",
-        "price": 2.5,
-        "image": "assets/images/apple.jpg"
-      },
-      {
-        "id": 2,
-        "name": "Banana",
-        "description": "Yellow bananas",
-        "price": 1.2,
-        "image": "assets/images/banana.jpg"
-      }
+      { "id": 1, "name": "Apple", "description": "Fresh red apples", "price": 2.5, "image": "assets/images/apple.jpg" },
+      { "id": 2, "name": "Banana", "description": "Yellow bananas", "price": 1.2, "image": "assets/images/banana.jpg" },
+      { "id": 3, "name": "Orange", "description": "Juicy oranges", "price": 1.8, "image": "assets/images/orange.jpg" },
+      { "id": 4, "name": "Grapes", "description": "Fresh grapes", "price": 3.0, "image": "assets/images/grapes.jpg" },
+      { "id": 5, "name": "Tomato", "description": "Fresh tomatoes", "price": 2.0, "image": "assets/images/tomato.jpg" },
+      { "id": 6, "name": "Cucumber", "description": "Green cucumbers", "price": 1.5, "image": "assets/images/cucumber.jpg" },
+      { "id": 7, "name": "Lettuce", "description": "Crispy lettuce", "price": 2.2, "image": "assets/images/lettuce.jpg" },
+      { "id": 8, "name": "Carrot", "description": "Fresh carrots", "price": 1.6, "image": "assets/images/carrot.jpg" }
     ]
   },
   {
     "categoryId": 2,
+    "categoryName": "Beverages",
     "products": [
-      {
-        "id": 3,
-        "name": "Coke",
-        "description": "Refreshing soda",
-        "price": 1.5,
-        "image": "assets/images/coke.jpg"
-      },
-      {
-        "id": 4,
-        "name": "Pepsi",
-        "description": "Cool refreshing drink",
-        "price": 1.4,
-        "image": "assets/images/pepsi.jpg"
-      }
+      { "id": 9, "name": "Coke", "description": "Refreshing soda", "price": 1.5, "image": "assets/images/coke.jpg" },
+      { "id": 10, "name": "Pepsi", "description": "Cool refreshing drink", "price": 1.4, "image": "assets/images/pepsi.jpg" },
+      { "id": 11, "name": "Sprite", "description": "Lemon-lime soda", "price": 1.3, "image": "assets/images/sprite.jpg" },
+      { "id": 12, "name": "Fanta", "description": "Citrus soda", "price": 1.7, "image": "assets/images/fanta.jpg" },
+      { "id": 13, "name": "Mountain Dew", "description": "Energy drink", "price": 1.8, "image": "assets/images/mountain_dew.jpg" },
+      { "id": 14, "name": "Dr Pepper", "description": "Soda with 23 flavors", "price": 1.9, "image": "assets/images/dr_pepper.jpg" },
+      { "id": 15, "name": "7 Up", "description": "Clear lemon soda", "price": 1.4, "image": "assets/images/7up.jpg" },
+      { "id": 16, "name": "Gatorade", "description": "Sports drink", "price": 2.0, "image": "assets/images/gatorade.jpg" }
+    ]
+  },
+  {
+    "categoryId": 3,
+    "categoryName": "Snacks",
+    "products": [
+      { "id": 17, "name": "Chips", "description": "Crunchy potato chips", "price": 1.0, "image": "assets/images/chips.jpg" },
+      { "id": 18, "name": "Cookies", "description": "Chocolate chip cookies", "price": 2.5, "image": "assets/images/cookies.jpg" },
+      { "id": 19, "name": "Candy", "description": "Assorted candies", "price": 0.5, "image": "assets/images/candy.jpg" },
+      { "id": 20, "name": "Nuts", "description": "Mixed nuts", "price": 3.0, "image": "assets/images/nuts.jpg" },
+      { "id": 21, "name": "Popcorn", "description": "Buttery popcorn", "price": 1.5, "image": "assets/images/popcorn.jpg" },
+      { "id": 22, "name": "Pretzels", "description": "Salty pretzels", "price": 1.8, "image": "assets/images/pretzels.jpg" },
+      { "id": 23, "name": "Granola Bar", "description": "Oats and honey bar", "price": 2.0, "image": "assets/images/granola_bar.jpg" },
+      { "id": 24, "name": "Muffins", "description": "Blueberry muffins", "price": 2.2, "image": "assets/images/muffins.jpg" }
+    ]
+  },
+  {
+    "categoryId": 4,
+    "categoryName": "Household",
+    "products": [
+      { "id": 25, "name": "Dish Soap", "description": "Cleans dishes", "price": 1.0, "image": "assets/images/dish_soap.jpg" },
+      { "id": 26, "name": "Laundry Detergent", "description": "Cleans clothes", "price": 3.0, "image": "assets/images/laundry_detergent.jpg" },
+      { "id": 27, "name": "Toilet Paper", "description": "Soft toilet paper", "price": 2.0, "image": "assets/images/toilet_paper.jpg" },
+      { "id": 28, "name": "Cleaning Spray", "description": "Multi-purpose cleaner", "price": 2.5, "image": "assets/images/cleaning_spray.jpg" },
+      { "id": 29, "name": "Trash Bags", "description": "Heavy duty trash bags", "price": 1.8, "image": "assets/images/trash_bags.jpg" },
+      { "id": 30, "name": "Sponges", "description": "Scrubbing sponges", "price": 1.2, "image": "assets/images/sponges.jpg" },
+      { "id": 31, "name": "Paper Towels", "description": "Absorbent paper towels", "price": 1.5, "image": "assets/images/paper_towels.jpg" },
+      { "id": 32, "name": "Mop", "description": "Floor cleaning mop", "price": 5.0, "image": "assets/images/mop.jpg" }
+    ]
+  },
+  {
+    "categoryId": 5,
+    "categoryName": "Personal Care",
+    "products": [
+      { "id": 33, "name": "Shampoo", "description": "Cleans hair", "price": 4.0, "image": "assets/images/shampoo.jpg" },
+      { "id": 34, "name": "Toothpaste", "description": "Whitening toothpaste", "price": 2.5, "image": "assets/images/toothpaste.jpg" },
+      { "id": 35, "name": "Soap", "description": "Moisturizing soap", "price": 1.2, "image": "assets/images/soap.jpg" },
+      { "id": 36, "name": "Conditioner", "description": "Hair conditioner", "price": 3.0, "image": "assets/images/conditioner.jpg" },
+      { "id": 37, "name": "Body Lotion", "description": "Hydrating lotion", "price": 2.5, "image": "assets/images/body_lotion.jpg" },
+      { "id": 38, "name": "Deodorant", "description": "Fresh scent deodorant", "price": 1.8, "image": "assets/images/deodorant.jpg" },
+      { "id": 39, "name": "Face Wash", "description": "Gentle face wash", "price": 3.2, "image": "assets/images/face_wash.jpg" },
+      { "id": 40, "name": "Shaving Cream", "description": "Smooth shave cream", "price": 2.0, "image": "assets/images/shaving_cream.jpg" }
+    ]
+  },
+  {
+    "categoryId": 6,
+    "categoryName": "Electronics",
+    "products": [
+      { "id": 41, "name": "Smartphone", "description": "Latest model smartphone", "price": 699.0, "image": "assets/images/smartphone.jpg" },
+      { "id": 42, "name": "Laptop", "description": "High-performance laptop", "price": 999.0, "image": "assets/images/laptop.jpg" },
+      { "id": 43, "name": "Smartwatch", "description": "Wearable fitness tracker", "price": 199.0, "image": "assets/images/smartwatch.jpg" },
+      { "id": 44, "name": "Headphones", "description": "Noise-cancelling headphones", "price": 150.0, "image": "assets/images/headphones.jpg" },
+      { "id": 45, "name": "Tablet", "description": "Portable tablet for work and play", "price": 350.0, "image": "assets/images/tablet.jpg" },
+      { "id": 46, "name": "Camera", "description": "High-definition camera", "price": 450.0, "image": "assets/images/camera.jpg" },
+      { "id": 47, "name": "Bluetooth Speaker", "description": "Portable Bluetooth speaker", "price": 80.0, "image": "assets/images/speaker.jpg" },
+      { "id": 48, "name": "Game Console", "description": "Latest gaming console", "price": 400.0, "image": "assets/images/game_console.jpg" }
+    ]
+  },
+  {
+    "categoryId": 7,
+    "categoryName": "Clothing",
+    "products": [
+      { "id": 49, "name": "T-shirt", "description": "Cotton T-shirt", "price": 20.0, "image": "assets/images/tshirt.jpg" },
+      { "id": 50, "name": "Jeans", "description": "Comfortable jeans", "price": 40.0, "image": "assets/images/jeans.jpg" },
+      { "id": 51, "name": "Jacket", "description": "Stylish winter jacket", "price": 60.0, "image": "assets/images/jacket.jpg" },
+      { "id": 52, "name": "Sweater", "description": "Cozy sweater", "price": 30.0, "image": "assets/images/sweater.jpg" },
+      { "id": 53, "name": "Shoes", "description": "Comfortable shoes", "price": 50.0, "image": "assets/images/shoes.jpg" },
+      { "id": 54, "name": "Socks", "description": "Cotton socks", "price": 5.0, "image": "assets/images/socks.jpg" },
+      { "id": 55, "name": "Hat", "description": "Stylish hat", "price": 15.0, "image": "assets/images/hat.jpg" },
+      { "id": 56, "name": "Scarf", "description": "Warm scarf", "price": 20.0, "image": "assets/images/scarf.jpg" }
     ]
   }
+  
 ]
