@@ -74,7 +74,7 @@ class _HomepageState extends State<Homepage> {
             ),
             const SizedBox(height: 8),
             // Horizontal scrollable categories (styled like buttons)
-            Container(
+            SizedBox(
               height: 60,
               child: isLoading
                   ? ListView.builder(

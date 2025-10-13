@@ -145,16 +145,16 @@ class _SignUpState extends State<SignUp> {
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: signUp,
-                    child: const Text(
-                      "Sign Up",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       backgroundColor: Colors.blueAccent,
+                    ),
+                    child: const Text(
+                      "Sign Up",
+                      style: TextStyle(fontSize: 18),
                     ),
                   ),
                   const SizedBox(height: 20),
