@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:babi_market/models/Product.dart';
 import 'package:babi_market/services/remote_services.dart';
+import 'package:babi_market/product_item_detail.dart';
 
 class ProductCategoryPage extends StatefulWidget {
   final int categoryId;
@@ -42,8 +43,17 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.categoryName} Products'),
-        backgroundColor: const Color.fromARGB(255, 94, 82, 255),
-        elevation: 4, // Add shadow for a floating effect
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blueAccent, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         // Make the entire body scrollable
@@ -62,7 +72,7 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
                       shrinkWrap:
                           true, // Allow the GridView to only take needed space
                       physics:
-                          NeverScrollableScrollPhysics(), // Disable GridView scrolling
+                          const NeverScrollableScrollPhysics(), // Disable GridView scrolling
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 16.0,
@@ -92,8 +102,15 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // You can navigate to a detailed product page here
-        print("Tapped on ${product.name}");
+        // Navigate to the product detail page when an item is tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductItemDetail(
+              product: product,
+            ), // Navigate to the product detail page
+          ),
+        );
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

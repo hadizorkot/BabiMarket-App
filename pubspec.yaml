@@ -99,6 +99,8 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 
   assets:
+    - assets/ProductCategory.json
+    - assets/products.json
     - assets/images/apple.jpg
     - assets/images/banana.jpg
     - assets/images/orange.jpg
@@ -163,3 +165,6 @@ flutter:
     - assets/images/camera.jpg
     - assets/images/speaker.jpg
     - assets/images/game_console.jpg
+    - assets/images/advertisement1.jpg
+    - assets/images/advertisement2.jpg
+    - assets/images/advertisement3.jpg
