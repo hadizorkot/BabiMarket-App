@@ -7,6 +7,7 @@ class ProductItemDetail extends StatefulWidget {
   const ProductItemDetail({super.key, required this.product});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProductItemDetailState createState() => _ProductItemDetailState();
 }
 
@@ -76,7 +77,7 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
               const SizedBox(height: 16.0),
               // Product description
               Text(
-                widget.product.description ?? 'No description available.',
+                widget.product.description,
                 style: const TextStyle(fontSize: 16, color: Colors.black54),
               ),
               const SizedBox(height: 24.0),
@@ -138,6 +139,7 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
                 child: ElevatedButton(
                   onPressed: () {
                     // Add your logic for adding the product to the cart with quantity
+                    // ignore: avoid_print
                     print(
                       'Added ${widget.product.name} to cart. Quantity: $quantity, Total Price: \$${totalPrice.toStringAsFixed(2)}',
                     );
