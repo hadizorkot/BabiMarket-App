@@ -30,6 +30,8 @@ environment:
 
 
 dependencies:
+  badges: ^3.1.2
+
   flutter:
     sdk: flutter
   firebase_core: ^4.1.0

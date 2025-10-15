@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:babi_market/models/Product.dart';
+import 'cart.dart'; // Assuming CartScreen is named as CartScreen
+import 'models/Product.dart';
+import 'package:badges/badges.dart'
+    as badges; // Alias the 'Badge' widget from the 'badges' package
 
 class ProductItemDetail extends StatefulWidget {
   final Product product;
@@ -7,21 +10,22 @@ class ProductItemDetail extends StatefulWidget {
   const ProductItemDetail({super.key, required this.product});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ProductItemDetailState createState() => _ProductItemDetailState();
 }
 
 class _ProductItemDetailState extends State<ProductItemDetail> {
-  int quantity = 1; // Default quantity
+  int quantity = 1;
+  bool itemAdded = false;
+
+  // Mock cart items count (you will use your actual cart data)
+  int cartItemCount = 0;
 
   @override
   Widget build(BuildContext context) {
-    // Calculate total price
     double totalPrice = widget.product.price * quantity;
 
     return Scaffold(
-      backgroundColor:
-          Colors.grey[100], // Light grey background for a modern feel
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
         title: Text('${widget.product.name} Details'),
         backgroundColor: Colors.transparent,
@@ -29,59 +33,83 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.purple],
+              colors: [Colors.deepPurpleAccent, Colors.blueGrey],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
         ),
+        actions: [
+          badges.Badge(
+            badgeContent: Text(
+              '$cartItemCount', // Displays the current number of items in the cart
+              style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+            ),
+            showBadge: cartItemCount > 0,
+            badgeStyle: badges.BadgeStyle(badgeColor: Colors.redAccent),
+            position: badges.BadgePosition.topEnd(),
+            badgeAnimation: badges.BadgeAnimation.scale(
+              animationDuration: Duration(milliseconds: 300),
+            ),
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.black87,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartScreen()),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image of the product
               ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  24,
-                ), // Rounded image corners
-                child: Image.asset(
-                  widget.product.image,
-                  height: 300, // Larger image height for impact
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+                borderRadius: BorderRadius.circular(24),
+                child: Hero(
+                  tag: widget.product.image,
+                  transitionOnUserGestures: true,
+                  child: Image.asset(
+                    widget.product.image,
+                    height: 350,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              const SizedBox(height: 20.0),
-              // Product name
+              const SizedBox(height: 24.0),
               Text(
                 widget.product.name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
                   color: Colors.black87,
                 ),
               ),
               const SizedBox(height: 8.0),
-              // Product price
               Text(
                 "\$${widget.product.price}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent,
+                  color: Colors.deepPurpleAccent,
                 ),
               ),
               const SizedBox(height: 16.0),
-              // Product description
               Text(
                 widget.product.description,
-                style: const TextStyle(fontSize: 16, color: Colors.black54),
+                style: TextStyle(fontSize: 16, color: Colors.black54),
               ),
               const SizedBox(height: 24.0),
-              // Quantity Selection Section
               Row(
                 children: [
                   const Text(
@@ -92,7 +120,7 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
                       color: Colors.black87,
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 12),
                   IconButton(
                     onPressed: () {
                       if (quantity > 1) {
@@ -102,7 +130,8 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
                       }
                     },
                     icon: const Icon(Icons.remove),
-                    color: Colors.orange,
+                    color: Colors.deepOrangeAccent,
+                    iconSize: 28,
                   ),
                   Text(
                     '$quantity',
@@ -119,14 +148,14 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
                       });
                     },
                     icon: const Icon(Icons.add),
-                    color: Colors.orange,
+                    color: Colors.deepOrangeAccent,
+                    iconSize: 28,
                   ),
                 ],
               ),
               const SizedBox(height: 16.0),
-              // Display total price
               Text(
-                'Total Price: \$${totalPrice.toStringAsFixed(2)}', // Two decimal places
+                'Total Price: \$${totalPrice.toStringAsFixed(2)}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -134,26 +163,29 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
                 ),
               ),
               const SizedBox(height: 24.0),
-              // Add to Cart Button
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Add your logic for adding the product to the cart with quantity
+                    setState(() {
+                      itemAdded = true;
+                      cartItemCount++; // Increment the cart item count
+                    });
                     // ignore: avoid_print
                     print(
                       'Added ${widget.product.name} to cart. Quantity: $quantity, Total Price: \$${totalPrice.toStringAsFixed(2)}',
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange, // Button color
+                    backgroundColor: Colors.deepOrangeAccent,
                     padding: const EdgeInsets.symmetric(
                       vertical: 16.0,
                       horizontal: 40.0,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(32),
                     ),
-                    elevation: 6,
+                    elevation: 8,
+                    shadowColor: Colors.black45,
                   ),
                   child: const Text(
                     'Add to Cart',
@@ -165,6 +197,80 @@ class _ProductItemDetailState extends State<ProductItemDetail> {
                   ),
                 ),
               ),
+              if (itemAdded)
+                Column(
+                  children: [
+                    const SizedBox(height: 20.0),
+                    Text(
+                      'Item added to cart!',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context); // Continue shopping
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 14.0,
+                              horizontal: 28.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            elevation: 8,
+                          ),
+                          child: const Text(
+                            'Continue Shopping',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CartScreen(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepOrangeAccent,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 14.0,
+                              horizontal: 28.0,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            elevation: 8,
+                          ),
+                          child: const Text(
+                            'Go to Cart',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
