@@ -15,9 +15,13 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   List<dynamic>? productCategories;
+  List<dynamic>? filteredProducts;
   var isLoading = true;
   late PageController _pageController; // Page controller for the carousel
   int _currentPage = 0; // Track current page for the carousel
+  TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
+  List<Map<String, dynamic>> _searchResults = [];
 
   @override
   void initState() {
@@ -49,21 +53,65 @@ class _HomepageState extends State<Homepage> {
 
     setState(() {
       productCategories = data;
+      filteredProducts = data; // Initially show all products
       isLoading = false;
     });
   }
 
   @override
   void dispose() {
+    _searchController.dispose(); // Dispose the controller when not needed
     _pageController.dispose(); // Dispose the controller when not needed
     super.dispose();
+  }
+
+  // Search function to filter products by name
+  void searchProducts(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _searchResults = [];
+        filteredProducts =
+            productCategories; // Show all products when query is empty
+      });
+    } else {
+      setState(() {
+        _searchResults = productCategories!
+            .expand((category) => category["products"])
+            .where(
+              (product) =>
+                  product["name"].toLowerCase().contains(query.toLowerCase()),
+            )
+            .map(
+              (p) => Map<String, dynamic>.from(p as Map),
+            ) // cast each item to Map<String, dynamic>
+            .toList(); // Get all products that match the search query
+        filteredProducts = productCategories;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BabiMarket"),
+        title: _isSearching
+            ? TextField(
+                controller: _searchController,
+                autofocus: true,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Search products...',
+                  hintStyle: TextStyle(color: Colors.white),
+                  border: InputBorder.none,
+                ),
+                onChanged: (query) => searchProducts(query),
+                onSubmitted: (query) {
+                  // When user presses 'Enter', dismiss the keyboard
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  searchProducts(query); // Perform search
+                },
+              )
+            : const Text("BabiMarket"),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -76,6 +124,32 @@ class _HomepageState extends State<Homepage> {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(_isSearching ? Icons.close : Icons.search),
+            onPressed: () {
+              if (_isSearching) {
+                setState(() {
+                  _isSearching = false;
+                  _searchController.clear();
+                  _searchResults = [];
+                  filteredProducts =
+                      productCategories; // Show all products when search is cleared
+                });
+              } else {
+                setState(() {
+                  _isSearching = true;
+                });
+              }
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {
+              // Add notification functionality here
+            },
+          ),
+        ],
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -132,7 +206,7 @@ class _HomepageState extends State<Homepage> {
                           ? const Center(child: CircularProgressIndicator())
                           : ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: productCategories?.length ?? 0,
+                              itemCount: filteredProducts?.length ?? 0,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(right: 16.0),
@@ -143,9 +217,9 @@ class _HomepageState extends State<Homepage> {
                                         MaterialPageRoute(
                                           builder: (context) => ProductCategoryPage(
                                             categoryId:
-                                                productCategories![index]["categoryId"],
+                                                filteredProducts![index]["categoryId"],
                                             categoryName:
-                                                productCategories![index]["categoryName"],
+                                                filteredProducts![index]["categoryName"],
                                           ),
                                         ),
                                       );
@@ -175,7 +249,7 @@ class _HomepageState extends State<Homepage> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          productCategories![index]["categoryName"],
+                                          filteredProducts![index]["categoryName"],
                                           style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,
@@ -189,6 +263,13 @@ class _HomepageState extends State<Homepage> {
                               },
                             ),
                     ),
+                    const SizedBox(height: 16),
+
+                    // Search Results Section (only shown when searching)
+                    _isSearching
+                        ? _buildSearchResultsSection()
+                        : const SizedBox.shrink(),
+
                     const SizedBox(height: 16),
 
                     // Recommended Items Section
@@ -223,6 +304,48 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
+  // Search Results Section
+  Widget _buildSearchResultsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Search Results",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 8),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: _searchResults.length,
+          itemBuilder: (context, index) {
+            var product = _searchResults[index];
+            return ListTile(
+              title: Text(product['name']),
+              onTap: () {
+                // Navigate to the product detail page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductItemDetail(
+                      product: Product.fromJson(
+                        product,
+                      ), // Convert Map to Product object
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  // Build Product Section for displaying products
   Widget _buildProductSection({
     required String title,
     required List<Map<String, dynamic>> products,
@@ -264,45 +387,61 @@ class _HomepageState extends State<Homepage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    elevation: 6,
+                    elevation: 8,
                     // ignore: deprecated_member_use
                     shadowColor: Colors.grey.withOpacity(0.3),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(16),
-                          ),
-                          child: Image.asset(
-                            products[index]['image'],
-                            height: 140,
-                            width: 180,
-                            fit: BoxFit.cover,
-                          ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                          colors: [
+                            // ignore: deprecated_member_use
+                            Colors.purple.withOpacity(0.2),
+                            // ignore: deprecated_member_use
+                            Colors.blueAccent.withOpacity(0.1),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            products[index]['name'],
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                            child: Image.asset(
+                              products[index]['image'],
+                              height: 140,
+                              width: 180,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "\$${products[index]['price']}",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.blueAccent,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              products[index]['name'],
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "\$${products[index]['price']}",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.blueAccent,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
