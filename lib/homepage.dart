@@ -19,7 +19,7 @@ class _HomepageState extends State<Homepage> {
   var isLoading = true;
   late PageController _pageController; // Page controller for the carousel
   int _currentPage = 0; // Track current page for the carousel
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   bool _isSearching = false;
   List<Map<String, dynamic>> _searchResults = [];
 
